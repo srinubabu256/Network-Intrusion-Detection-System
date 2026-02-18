@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}System Analysis{% endblock %}
+
+{% block content %}
+<div class="charts-grid">
+    <div class="chart-card">
+        <h3>Model Performance</h3>
+        <canvas id="performanceChart"></canvas>
+    </div>
+    <div class="chart-card">
+        <h3>Feature Importance</h3>
+        <canvas id="featureChart"></canvas>
+    </div>
+</div>
+
+<div class="form-container" style="margin-top: 2rem;">
+    <h3>Dataset Statistics</h3>
+    <table style="width: 100%; margin-top: 1rem; color: var(--text-muted); border-collapse: collapse;">
+        <tr style="border-bottom: 1px solid var(--border-color);">
+            <th style="padding: 1rem; text-align: left;">Metric</th>
+            <th style="padding: 1rem; text-align: right;">Value</th>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 1rem;">Total Records</td>
+            <td style="padding: 1rem; text-align: right;">125,973</td>
+        </tr>
+        <tr style="border-bottom: 1px solid var(--border-color);">
+            <td style="padding: 1rem;">Training Accuracy</td>
+            <td style="padding: 1rem; text-align: right;">99.8%</td>
+        </tr>
+        <tr>
+            <td style="padding: 1rem;">Testing Accuracy</td>
+            <td style="padding: 1rem; text-align: right;">95.4%</td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    const perfCtx = document.getElementById('performanceChart').getContext('2d');
+    new Chart(perfCtx, {
+        type: 'bar',
+        data: {
+            labels: ['Accuracy', 'Precision', 'Recall', 'F1-Score'],
+            datasets: [{
+                label: 'Score',
+                data: [95, 94, 96, 95],
+                backgroundColor: [
+                    '#4361ee',
+                    '#4cc9f0',
+                    '#f72585',
+                    '#ffb703'
+                ]
+            }]
+        },
+        options: {
+            plugins: {
+                legend: { display: false }
+            },
+            scales: {
+                y: { grid: { color: '#334155' }, ticks: { color: '#94a3b8' }, max: 100 }
+            }
+        }
+    });
+
+    const featCtx = document.getElementById('featureChart').getContext('2d');
+    new Chart(featCtx, {
+        type: 'horizontalBar', // Note: 'bar' with indexAxis: 'y' for chart.js v3+
+        data: {
+            labels: ['Src Bytes', 'Dst Bytes', 'Duration', 'Wrong Frag', 'Urgent'],
+            datasets: [{
+                label: 'Importance',
+                data: [0.35, 0.25, 0.15, 0.15, 0.10],
+                backgroundColor: '#4361ee'
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: true
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction Result{% endblock %}
+
+{% block content %}
+<div class="result-card">
+    {% if result == "✅ Normal Traffic" %}
+    <div class="result-icon safe">
+        <i class="fas fa-shield-alt"></i>
+    </div>
+    <h2 class="safe" style="font-size: 2.5rem; margin-bottom: 1rem;">Normal Traffic</h2>
+    <p style="color: var(--text-muted);">No malicious patterns were detected in this traffic analysis.</p>
+    {% else %}
+    <div class="result-icon danger">
+        <i class="fas fa-biohazard"></i>
+    </div>
+    <h2 class="danger" style="font-size: 2.5rem; margin-bottom: 1rem;">Attack Detected!</h2>
+    <p style="color: var(--text-muted);">Warning: Malicious traffic pattern identified. Immediate action recommended.
+    </p>
+    <div
+        style="margin-top: 2rem; padding: 1rem; background: rgba(247, 37, 133, 0.1); border-radius: 0.5rem; color: #f72585;">
+        <strong>Detected Threat Level: High</strong>
+    </div>
+    {% endif %}
+
+    <a href="{{ url_for('predict_page') }}" class="btn-primary"
+        style="display: inline-block; margin-top: 2rem; text-decoration: none; width: auto;">Analyze Another</a>
+</div>
+{% endblock %}

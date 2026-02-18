@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NIDS - Network Intrusion Detection System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <aside class="sidebar">
+        <div class="logo">
+            <i class="fas fa-shield-alt"></i>
+            <span>NIDS Pro</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="{{ url_for('dashboard') }}"
+                    class="nav-link {% if request.path == '/dashboard' or request.path == '/' %}active{% endif %}">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('predict_page') }}"
+                    class="nav-link {% if request.path == '/predict_page' %}active{% endif %}">
+                    <i class="fas fa-search"></i>
+                    <span>Prediction</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('analysis') }}"
+                    class="nav-link {% if request.path == '/analysis' %}active{% endif %}">
+                    <i class="fas fa-chart-pie"></i>
+                    <span>Analysis</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ url_for('settings') }}"
+                    class="nav-link {% if request.path == '/settings' %}active{% endif %}">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+            </li>
+        </ul>
+    </aside>
+
+    <main class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>{% block title %}Dashboard{% endblock %}</h2>
+                <p>Real-time Network Security Monitoring</p>
+            </div>
+            <div class="user-profile">
+                <span>Admin User</span>
+                <div class="user-avatar">AD</div>
+            </div>
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+        <footer>
+            <p>&copy; 2026 NIDS Pro System. All rights reserved.</p>
+        </footer>
+    </main>
+</body>
+
+</html>

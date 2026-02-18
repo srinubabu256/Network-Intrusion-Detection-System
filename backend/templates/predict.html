@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Traffic Prediction{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h3 style="margin-bottom: 2rem; color: var(--primary-color);">Enter Traffic Details</h3>
+    <form action="/predict" method="POST">
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Duration</label>
+                <input type="number" name="duration" placeholder="e.g. 0" required>
+            </div>
+            <div class="form-group">
+                <label>Source Bytes</label>
+                <input type="number" name="src_bytes" placeholder="e.g. 491" required>
+            </div>
+            <div class="form-group">
+                <label>Destination Bytes</label>
+                <input type="number" name="dst_bytes" placeholder="e.g. 0" required>
+            </div>
+            <div class="form-group">
+                <label>Wrong Fragment</label>
+                <input type="number" name="wrong_fragment" placeholder="e.g. 0" required>
+            </div>
+            <div class="form-group">
+                <label>Urgent Packets</label>
+                <input type="number" name="urgent" placeholder="e.g. 0" required>
+            </div>
+        </div>
+        <button type="submit" class="btn-primary">
+            <i class="fas fa-search-dollar" style="margin-right: 0.5rem;"></i> Analyze Traffic
+        </button>
+    </form>
+</div>
+{% endblock %}

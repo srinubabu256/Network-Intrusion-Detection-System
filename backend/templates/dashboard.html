@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SentryForce | Advanced NIDS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>SentryForce</span>
+            </div>
+            <nav>
+                <ul>
+                    <li class="active" data-tab="dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</li>
+                    <li data-tab="live-monitor"><i class="fa-solid fa-network-wired"></i> Live Monitor</li>
+                    <li data-tab="analysis"><i class="fa-solid fa-microscope"></i> Analysis</li>
+                    <li data-tab="settings"><i class="fa-solid fa-gear"></i> Settings</li>
+                </ul>
+            </nav>
+            <div class="user-profile">
+                <div class="avatar">A</div>
+                <div class="info">
+                    <span class="name">Admin User</span>
+                    <span class="role">Security Analyst</span>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header>
+                <div class="breadcrumbs">System / Dashboard</div>
+                <div class="status-bar">
+                    <div class="status-item"><i class="fa-solid fa-circle-check"></i> System Online</div>
+                    <div class="status-item warning"><i class="fa-solid fa-triangle-exclamation"></i> Threat Level: LOW</div>
+                </div>
+            </header>
+
+            <!-- Dashboard View -->
+            <section id="dashboard" class="view active">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="icon"><i class="fa-solid fa-server"></i></div>
+                        <div class="value" id="total-packets">0</div>
+                        <div class="label">Total Packets Analyzed</div>
+                    </div>
+                    <div class="stat-card danger">
+                        <div class="icon"><i class="fa-solid fa-bug"></i></div>
+                        <div class="value" id="threats-detected">0</div>
+                        <div class="label">Threats Detected</div>
+                    </div>
+                    <div class="stat-card success">
+                        <div class="icon"><i class="fa-solid fa-shield-virus"></i></div>
+                        <div class="value" id="safe-traffic">0</div>
+                        <div class="label">Safe Traffic</div>
+                    </div>
+                    <div class="stat-card info">
+                        <div class="icon"><i class="fa-solid fa-bolt"></i></div>
+                        <div class="value" id="avg-latency">12ms</div>
+                        <div class="label">Avg Latency</div>
+                    </div>
+                </div>
+
+                <div class="charts-row">
+                    <div class="chart-container wide">
+                        <h3><i class="fa-solid fa-wave-square"></i> Real-time Traffic Analysis</h3>
+                        <canvas id="trafficChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="logs-container">
+                    <h3><i class="fa-solid fa-list"></i> Recent Activity Logs</h3>
+                    <div class="table-wrapper">
+                        <table id="logs-table">
+                            <thead>
+                                <tr>
+                                    <th>Timestamp</th>
+                                    <th>Protocol</th>
+                                    <th>Service</th>
+                                    <th>Flag</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Rows will be populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Live Monitor View -->
+            <section id="live-monitor" class="view">
+                <div class="monitor-controls">
+                    <button id="start-simulation" class="btn primary"><i class="fa-solid fa-play"></i> Start Simulation</button>
+                    <button id="stop-simulation" class="btn danger" disabled><i class="fa-solid fa-stop"></i> Stop</button>
+                    <div class="speed-control">
+                        <label>Speed:</label>
+                        <input type="range" id="sim-speed" min="100" max="2000" value="1000">
+                    </div>
+                </div>
+                
+                <div class="terminal-monitor">
+                    <div class="terminal-header">
+                        <span><i class="fa-solid fa-terminal"></i> Network Traffic Stream</span>
+                        <div class="indicators">
+                            <span class="indicator active"></span>
+                            <span class="indicator"></span>
+                            <span class="indicator"></span>
+                        </div>
+                    </div>
+                    <div id="terminal-output" class="terminal-content">
+                        <div class="line system">Initializing SentryForce Network Monitor...</div>
+                        <div class="line system">Waiting for traffic stream...</div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

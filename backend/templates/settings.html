@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h3 style="margin-bottom: 1.5rem;">Dataset Configuration</h3>
+    <form action="/upload_dataset" method="POST" enctype="multipart/form-data">
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Upload a new NSL-KDD formatted CSV/TXT file to update
+            the detection system.</p>
+
+        <div class="form-group"
+            style="margin-bottom: 2rem; border: 2px dashed var(--border-color); padding: 2rem; text-align: center; border-radius: 1rem;">
+            <i class="fas fa-cloud-upload-alt"
+                style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+            <input type="file" name="file" id="file" style="display: none;"
+                onchange="document.getElementById('fname').innerText = this.files[0].name">
+            <br>
+            <label for="file" class="btn-primary" style="display: inline-block; width: auto; margin-top: 1rem;">Choose
+                File</label>
+            <p id="fname" style="margin-top: 1rem; font-weight: bold;">No file chosen</p>
+        </div>
+
+        <button type="submit" class="btn-primary" style="background: var(--success-color);">
+            <i class="fas fa-save"></i> Upload & Reload System
+        </button>
+    </form>
+</div>
+
+<div class="form-container" style="margin-top: 2rem;">
+    <h3>Model Settings</h3>
+    <form>
+        <div class="form-group" style="margin-bottom: 1rem;">
+            <label>Auto-Retrain Interval</label>
+            <select
+                style="width: 100%; padding: 1rem; background: var(--bg-dark); border: 1px solid var(--border-color); color: white; border-radius: 0.5rem;">
+                <option>Never</option>
+                <option>Daily</option>
+                <option>Weekly</option>
+            </select>
+        </div>
+        <button type="button" class="btn-primary">Save Preferences</button>
+    </form>
+</div>
+{% endblock %}
