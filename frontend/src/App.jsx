@@ -35,23 +35,6 @@ function App() {
             <Sidebar simulationStatus={isSimulating} toggleSimulation={toggleSimulation} />
 
             <main className="flex-1 ml-64 p-8 overflow-y-auto h-screen relative">
-              {/* Top Bar / Header */}
-              <div className="flex justify-between items-center mb-8">
-                <div>
-                  <h1 className="text-3xl font-black tracking-tight text-white/90">
-                    Network Security Overview
-                  </h1>
-                  <p className="text-sm text-slate-400 mt-1 font-medium tracking-wide">Real-time monitoring and adaptive response system</p>
-                </div>
-
-                <div className="flex items-center gap-4">
-                  <ThemeToggle />
-                  <div className="h-10 w-10 rounded-xl bg-slate-800/50 border border-white/10 flex items-center justify-center text-xs font-bold text-slate-300 shadow-lg backdrop-blur-sm">
-                    AD
-                  </div>
-                </div>
-              </div>
-
               <Routes>
                 <Route path="/" element={<Dashboard isSimulating={isSimulating} toggleSimulation={toggleSimulation} />} />
                 <Route path="/comparison" element={<Comparison />} />

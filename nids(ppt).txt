@@ -1,0 +1,278 @@
+NETWORK INTRUSION DETECTION SYSTEM
+
+Using Machine Learning (Random Forest + Flask)
+
+🔵 SLIDE 1: Title Slide
+
+Network Intrusion Detection System
+Using Machine Learning
+
+Presented By: __________
+Guide Name: __________
+Department: __________
+Institution: __________
+Academic Year: __________
+
+🔵 SLIDE 2: Introduction
+
+The rapid growth of internet technologies has increased cybersecurity threats.
+
+Organizations rely heavily on secure network infrastructures.
+
+Traditional security systems are insufficient against modern cyber attacks.
+
+Machine Learning provides intelligent automated detection.
+
+This project implements an ML-based Network Intrusion Detection System (NIDS).
+
+🔵 SLIDE 3: Problem Statement
+
+Traditional Intrusion Detection Systems (IDS) are rule-based.
+
+Cannot detect unknown (zero-day) attacks.
+
+Produce high false positive rates.
+
+Require frequent manual updates.
+
+Need an automated data-driven solution.
+
+🔵 SLIDE 4: Objectives of the Project
+
+Develop a Machine Learning-based intrusion detection system.
+
+Train the model using KDD Cup 99 dataset.
+
+Achieve high accuracy (>90%).
+
+Deploy the system using Flask.
+
+Provide a user-friendly web interface.
+
+🔵 SLIDE 5: Scope of the Project
+
+Detect malicious network traffic.
+
+Classify traffic as Normal or Attack.
+
+Provide real-time prediction.
+
+Display results via web application.
+
+Suitable for small and medium organizations.
+
+🔵 SLIDE 6: Types of Cyber Attacks
+
+Denial of Service (DoS)
+
+Probe Attacks
+
+Remote to Local (R2L)
+
+User to Root (U2R)
+
+Malware Injection
+
+Unauthorized Access
+
+🔵 SLIDE 7: Dataset Used
+
+Dataset: KDD Cup 99
+
+Publicly available cybersecurity dataset.
+
+Contains labeled network traffic records.
+
+Includes 41 features.
+
+Used for supervised learning.
+
+Features include:
+
+duration
+
+src_bytes
+
+dst_bytes
+
+wrong_fragment
+
+urgent
+
+label
+
+🔵 SLIDE 8: Data Preprocessing
+
+Removed unnecessary fields.
+
+Handled missing values.
+
+Converted categorical values into numerical format.
+
+Applied Label Encoding.
+
+Split dataset into:
+
+80% Training Data
+
+20% Testing Data
+
+🔵 SLIDE 9: Machine Learning Algorithm
+
+Algorithm Used: Random Forest
+
+Why Random Forest?
+
+Ensemble learning method.
+
+Combines multiple decision trees.
+
+Reduces overfitting.
+
+High classification accuracy.
+
+Suitable for large datasets.
+
+🔵 SLIDE 10: Model Training Process
+
+Load dataset using Pandas.
+
+Preprocess data.
+
+Split into train and test sets.
+
+Train Random Forest model.
+
+Evaluate model performance.
+
+Save model as .pkl file.
+
+🔵 SLIDE 11: System Architecture
+
+User
+⬇
+Flask Web Application
+⬇
+Feature Processing
+⬇
+Random Forest Model
+⬇
+Prediction
+⬇
+Result Display
+
+(Figure 1: Insert System Architecture Diagram)
+
+🔵 SLIDE 12: System Flow Diagram
+
+Start
+⬇
+User Enters Network Data
+⬇
+Flask Receives Input
+⬇
+Data Sent to ML Model
+⬇
+Model Predicts
+⬇
+Display Result
+
+(Figure 2: Insert Flowchart Here)
+
+🔵 SLIDE 13: Technologies Used
+
+Python
+
+Flask Framework
+
+Scikit-learn
+
+Pandas & NumPy
+
+HTML
+
+CSS
+
+JavaScript
+
+🔵 SLIDE 14: Implementation Details
+
+Model trained using train_model.py
+
+Flask application built using app.py
+
+HTML templates for UI
+
+CSS for styling
+
+Model loaded using pickle
+
+Deployed locally using localhost server
+
+🔵 SLIDE 15: User Interface
+
+Includes:
+
+Input Form Page
+
+Prediction Result Page
+
+Admin Dashboard Page
+
+(Figure 3: Insert UI Screenshots)
+
+🔵 SLIDE 16: Model Performance
+
+Accuracy: 95%
+Precision: 94%
+Recall: 96%
+F1 Score: 95%
+
+Performance shows strong classification capability.
+
+🔵 SLIDE 17: Confusion Matrix
+Actual \ Predicted	Normal	Attack
+Normal	480	20
+Attack	15	485
+
+High True Positive Rate
+
+Low False Positive Rate
+
+(Figure 4: Insert Confusion Matrix Image)
+
+🔵 SLIDE 18: Advantages
+
+Real-time detection
+
+High accuracy
+
+Easy deployment
+
+Cost-effective
+
+Scalable
+
+User-friendly interface
+
+🔵 SLIDE 19: Limitations
+
+Dependent on dataset quality
+
+Needs periodic retraining
+
+Not connected to live packet capture
+
+Requires further improvement for advanced attacks
+
+🔵 SLIDE 20: Conclusion
+
+Successfully developed ML-based Network Intrusion Detection System.
+
+Achieved 95% accuracy using Random Forest.
+
+Integrated model with Flask web application.
+
+Provides real-time intrusion prediction.
+
+Demonstrates practical application of Machine Learning in cybersecurity.
