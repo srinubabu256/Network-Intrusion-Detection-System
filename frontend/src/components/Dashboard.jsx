@@ -3,12 +3,11 @@ import { useSocket, socket } from "../hooks/useSocket"
 import { useSimulation } from "../context/SimulationContext"
 import { BarChart, Bar, ResponsiveContainer, Label, XAxis, YAxis, Tooltip, Legend, PieChart, Pie, Cell, AreaChart, Area, CartesianGrid } from 'recharts'
 import { BadgeCheck, ShieldAlert, Cpu, Activity, Info, Loader2, Network } from "lucide-react"
+import ThemeToggle from "./ThemeToggle"
 
 // Theme Colors
 const COLORS = ['#0ea5e9', '#f59e0b', '#f43f5e', '#8b5cf6', '#10b981'];
 const DARK_BG = "#020617";
-
-
 
 const AttackDistributionChart = ({ stats }) => {
     const data = stats?.protocols ? [
@@ -48,31 +47,63 @@ const AttackDistributionChart = ({ stats }) => {
 
 const TrafficVolumeChart = ({ stats }) => {
     const data = stats?.attacks ? [
-        { name: 'DoS', count: stats.attacks.DoS || 0 },
-        { name: 'Probe', count: stats.attacks.Probe || 0 },
-        { name: 'R2L', count: stats.attacks.R2L || 0 },
-        { name: 'U2R', count: stats.attacks.U2R || 0 },
-        { name: 'Normal', count: stats.attacks.Normal || 0 },
+        { name: 'DoS', count: stats.attacks.DoS || 0, color: '#f43f5e' },     // Rose-500
+        { name: 'Probe', count: stats.attacks.Probe || 0, color: '#f59e0b' }, // Amber-500
+        { name: 'R2L', count: stats.attacks.R2L || 0, color: '#a855f7' },     // Purple-500
+        { name: 'U2R', count: stats.attacks.U2R || 0, color: '#ec4899' },     // Pink-500
+        { name: 'Normal', count: stats.attacks.Normal || 0, color: '#10b981' },// Emerald-500
     ] : [];
 
     return (
-        <div className="h-56 w-full min-w-0 relative">
+        <div className="h-64 w-full min-w-0 relative">
             <ResponsiveContainer width="99%" height="100%" debounce={50}>
-                <BarChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                <BarChart data={data} margin={{ top: 20, right: 10, left: -20, bottom: 0 }} barSize={40}>
                     <defs>
-                        <linearGradient id="colorCount" x1="0" y1="0" x2="0" y2="1">
-                            <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.8} />
-                            <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
-                        </linearGradient>
+                        {data.map((entry, index) => (
+                            <linearGradient id={`gradient-${index}`} x1="0" y1="0" x2="0" y2="1" key={index}>
+                                <stop offset="0%" stopColor={entry.color} stopOpacity={0.8} />
+                                <stop offset="95%" stopColor={entry.color} stopOpacity={0.1} />
+                            </linearGradient>
+                        ))}
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                    <XAxis dataKey="name" stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} dy={10} />
-                    <YAxis stroke="#64748b" fontSize={11} tickLine={false} axisLine={false} />
-                    <Tooltip
-                        cursor={{ fill: 'rgba(56, 189, 248, 0.05)' }}
-                        contentStyle={{ backgroundColor: 'rgba(2, 6, 23, 0.9)', borderColor: 'rgba(30, 41, 59, 0.5)', borderRadius: '8px', color: '#fff' }}
+                    <XAxis
+                        dataKey="name"
+                        stroke="#94a3b8"
+                        fontSize={12}
+                        tickLine={false}
+                        axisLine={false}
+                        dy={10}
+                        fontWeight="600"
                     />
-                    <Bar dataKey="count" fill="url(#colorCount)" barSize={32} radius={[6, 6, 0, 0]} />
+                    <YAxis
+                        stroke="#64748b"
+                        fontSize={11}
+                        tickLine={false}
+                        axisLine={false}
+                        tickFormatter={(value) => value >= 1000 ? `${(value / 1000).toFixed(1)}k` : value}
+                    />
+                    <Tooltip
+                        cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
+                        contentStyle={{
+                            backgroundColor: 'rgba(2, 6, 23, 0.95)',
+                            borderColor: 'rgba(30, 41, 59, 1)',
+                            backdropFilter: 'blur(8px)',
+                            borderRadius: '12px',
+                            color: '#fff',
+                            boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.5)'
+                        }}
+                        itemStyle={{ color: '#fff' }}
+                        formatter={(value, name, props) => [
+                            value.toLocaleString(),
+                            <span style={{ color: props.payload.color, fontWeight: 'bold' }}>{name}</span>
+                        ]}
+                    />
+                    <Bar dataKey="count" radius={[8, 8, 0, 0]} animationDuration={1200}>
+                        {data.map((entry, index) => (
+                            <Cell key={`cell-${index}`} fill={`url(#gradient-${index})`} stroke={entry.color} strokeWidth={1} strokeOpacity={0.5} />
+                        ))}
+                    </Bar>
                 </BarChart>
             </ResponsiveContainer>
         </div>
@@ -168,6 +199,23 @@ export default function Dashboard({ isSimulating, toggleSimulation }) {
 
     return (
         <div className="space-y-6 animate-in fade-in duration-700">
+            {/* Header */}
+            <div className="flex justify-between items-center mb-2">
+                <div>
+                    <h1 className="text-3xl font-black tracking-tight text-white/90">
+                        Network Security Overview
+                    </h1>
+                    <p className="text-sm text-slate-400 mt-1 font-medium tracking-wide">Real-time monitoring and adaptive response system</p>
+                </div>
+
+                <div className="flex items-center gap-4">
+                    <ThemeToggle />
+                    <div className="h-10 w-10 rounded-xl bg-slate-800/50 border border-white/10 flex items-center justify-center text-xs font-bold text-slate-300 shadow-lg backdrop-blur-sm">
+                        AD
+                    </div>
+                </div>
+            </div>
+
             {/* Status Bar */}
             <div className="glass-panel p-4 rounded-2xl flex justify-between items-center">
                 <div className="flex items-center gap-3">
